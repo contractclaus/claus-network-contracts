@@ -56,7 +56,8 @@
     "test/ClausProjectWallet.t.sol": "0a44a667675afa7ba9bb249bfabdc9d97452de821ab54fc0cda51b2cdc869d50",
     "src/ClausNativeVault.sol": "a1d74f600d75162d275f99ae8df9337a9d59dac244b70f4494f7a185e345167c",
     "src/ClausVaultAdmission.sol": "d8068a7565a659ed3047dcd78b0e0738cebd5662ce2a0811ef7d638494a0e804",
-    "test/ClausNativeVault.t.sol": "6ef8d421bd2d53d334951ca033a6c3488e39fd4fb4da3c79aacac033f36da6a1"
+    "test/ClausNativeVault.t.sol": "6ef8d421bd2d53d334951ca033a6c3488e39fd4fb4da3c79aacac033f36da6a1",
+    "test/ClausVaultLifecycle.t.sol": "226ac00336859d06f11be6d36d2e04c6e214be78169601a2c181495e29483f36"
   },
   "dependencies": {
     "openzeppelin-contracts": "5fd1781b1454fd1ef8e722282f86f9293cacf256",
