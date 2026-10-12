@@ -58,7 +58,9 @@
     "src/ClausVaultAdmission.sol": "d8068a7565a659ed3047dcd78b0e0738cebd5662ce2a0811ef7d638494a0e804",
     "test/ClausNativeVault.t.sol": "6ef8d421bd2d53d334951ca033a6c3488e39fd4fb4da3c79aacac033f36da6a1",
     "test/ClausVaultLifecycle.t.sol": "226ac00336859d06f11be6d36d2e04c6e214be78169601a2c181495e29483f36",
-    "test/ClausReadonlyResult.t.sol": "9523f2f66c2ff1940649d6abc8afcc9bc5c200d30932a86d91b8755e08b158c2"
+    "test/ClausReadonlyResult.t.sol": "9523f2f66c2ff1940649d6abc8afcc9bc5c200d30932a86d91b8755e08b158c2",
+    "src/ClausContentDigest.sol": "2af4c110ccd4296ae43af3c07750807d3afd65e5afd987dee32e9b382c570ae3",
+    "test/ClausContentDigest.t.sol": "258142a1bf03dd665e4b7caf8976580a5ee4e776162fb635c5c8009257ab759c"
   },
   "dependencies": {
     "openzeppelin-contracts": "5fd1781b1454fd1ef8e722282f86f9293cacf256",
