@@ -11,6 +11,9 @@ contract ClausReadonlyProject {
     error ExecutorOnly();
     error InvalidModule();
     error OversizedConfiguration();
+    error ModuleCallFailed();
+    error InvalidResult();
+    error OversizedResult();
 
     address public immutable executor;
     bytes32 public immutable projectId;
@@ -33,7 +36,30 @@ contract ClausReadonlyProject {
     function evaluate(bytes calldata input) external view returns (bytes memory) {
         if (input.length > 8192) revert OversizedConfiguration();
         if (implementation.codehash != implementationCodeHash) revert InvalidModule();
-        return IClausReadonlyModule(implementation).evaluate{gas: 200_000}(configuration, input);
+        bytes memory callData = abi.encodeCall(IClausReadonlyModule.evaluate, (configuration, input));
+        address module = implementation;
+        bool success;
+        uint256 size;
+        // Do not let an untrusted module force an unbounded returndata copy.
+        assembly ("memory-safe") {
+            success := staticcall(200000, module, add(callData, 32), mload(callData), 0, 0)
+            size := returndatasize()
+        }
+        if (!success) revert ModuleCallFailed();
+        if (size > 8256) revert OversizedResult();
+        if (size < 64) revert InvalidResult();
+        uint256 offset;
+        uint256 length;
+        assembly ("memory-safe") {
+            let scratch := mload(0x40)
+            returndatacopy(scratch, 0, 64)
+            offset := mload(scratch)
+            length := mload(add(scratch, 32))
+        }
+        if (offset != 32 || length > 8192 || size != 64 + ((length + 31) & ~uint256(31))) revert InvalidResult();
+        bytes memory output = new bytes(length);
+        assembly ("memory-safe") { returndatacopy(add(output, 32), 64, length) }
+        return output;
     }
 
     function _apply(address module, bytes memory config) private {

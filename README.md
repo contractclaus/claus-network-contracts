@@ -6,6 +6,10 @@ Project owners register a fixed kernel and explicit mandate. A module change req
 
 Modules run using STATICCALL and their bytecode hash is checked on every evaluation. A module may still depend on changing external state. A proxy or delegated module can keep its own bytecode while changing its executing dependencies; these modules are outside the supported review profile and must be rejected by the reviewer and approval policy. The onchain hash check alone cannot detect arbitrary mutable dispatch. A code hash is not a guarantee of immutable behavior or investment safety. Signing EOAs must remain ordinary EOAs, or use deliberately reviewed ERC-1271 verification. Losing an owner key still requires recovery in that owner wallet; the network cannot override project ownership. Source verification is separate from security review.
 
+## Bounded result candidate
+
+The current source additionally caps module output at 8,192 bytes, validates its ABI header and bounds returndata before copying or allocating it. Large reverts are not bubbled. This changes the kernel creation code embedded in the executor and therefore requires a separately reviewed deployment for new projects. It is a candidate, not a replacement of the active deployments below. The local contract suite passed 60 tests, including oversized and malformed output cases. Public admission and mainnet are not activated by this source publication.
+
 ## Reproduce
 
 Run `forge test` with Foundry and Solidity 0.8.27. Exact vendored dependencies and input hashes are listed in `SOURCE_MANIFEST.json`. No package installation, FFI or remote fork is needed for the tests.

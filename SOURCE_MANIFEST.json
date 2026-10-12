@@ -3,7 +3,7 @@
   "compiler": "0.8.27",
   "files": {
     "test/ClausApprovalExecutor.t.sol": "ca399a24f3a50e7d0991d2f3337b9d779ac5b805d1b5349a3ba72557c7bd9d96",
-    "src/ClausReadonlyProject.sol": "c45602bc748423f31b7128b7fa557f98aa4e273c2f388dc7729793ba550caa3a",
+    "src/ClausReadonlyProject.sol": "7c7fe172382a767b3700daac415fedb297b57ffe5c932deba561fffc1bbe75a1",
     "src/ClausApprovalExecutor.sol": "92df12300de383b7a5c113f43160ee95eb7f3edf25e83178d8bfbf005446a6df",
     "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol": "acc520422fac0a9edb85d7268085a63219a0db9e4406cd155d5c74c94e35f590",
     "lib/openzeppelin-contracts/contracts/utils/Bytes.sol": "3ce9120a27934c75a074cb785d3a88868069ef6529dbe4dc6b845af0836f3c70",
@@ -57,7 +57,8 @@
     "src/ClausNativeVault.sol": "a1d74f600d75162d275f99ae8df9337a9d59dac244b70f4494f7a185e345167c",
     "src/ClausVaultAdmission.sol": "d8068a7565a659ed3047dcd78b0e0738cebd5662ce2a0811ef7d638494a0e804",
     "test/ClausNativeVault.t.sol": "6ef8d421bd2d53d334951ca033a6c3488e39fd4fb4da3c79aacac033f36da6a1",
-    "test/ClausVaultLifecycle.t.sol": "226ac00336859d06f11be6d36d2e04c6e214be78169601a2c181495e29483f36"
+    "test/ClausVaultLifecycle.t.sol": "226ac00336859d06f11be6d36d2e04c6e214be78169601a2c181495e29483f36",
+    "test/ClausReadonlyResult.t.sol": "9523f2f66c2ff1940649d6abc8afcc9bc5c200d30932a86d91b8755e08b158c2"
   },
   "dependencies": {
     "openzeppelin-contracts": "5fd1781b1454fd1ef8e722282f86f9293cacf256",
