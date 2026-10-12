@@ -20,7 +20,8 @@ contract ClausApprovalExecutorTest is Test {
     ReadModule second;
     uint256 constant CLAUS_KEY = 0xA11CE;
     uint256 constant OWNER_KEY = 0xB0B;
-    bytes32 constant ID = keccak256("test-project");
+    bytes32 ID;
+    bytes32 constant SALT = keccak256("test-project");
     bytes32 constant MANDATE = keccak256("test-mandate");
     bytes32 constant POLICY = keccak256("test-policy");
 
@@ -30,9 +31,10 @@ contract ClausApprovalExecutorTest is Test {
     function setUp() public {
         vm.warp(1800000000);
         executor = new ClausApprovalExecutor(vm.addr(CLAUS_KEY), address(this), 2 days);
+        ID = executor.projectKey(vm.addr(OWNER_KEY), SALT);
         first = new ReadModule(); second = new ReadModule();
         ClausApprovalExecutor.Registration memory r = ClausApprovalExecutor.Registration(
-            ID, vm.addr(OWNER_KEY), address(first), address(first).codehash, keccak256("first"), MANDATE, POLICY, 1 hours, 0, uint64(block.timestamp+1 days)
+            ID, vm.addr(OWNER_KEY), SALT, address(first), address(first).codehash, keccak256("first"), MANDATE, POLICY, 1 hours, 0, uint64(block.timestamp+1 days)
         );
         target = ClausReadonlyProject(executor.registerProject(r,"first",signature(OWNER_KEY,executor.registrationDigest(r))));
     }
@@ -99,5 +101,89 @@ contract ClausApprovalExecutorTest is Test {
         ClausApprovalExecutor.Approval memory a=approval();a.implementation=address(module);a.toCodeHash=address(module).codehash;
         bytes memory sig=signature(CLAUS_KEY,executor.approvalDigest(a));executor.queue(a,sig);vm.warp(block.timestamp+1 hours);executor.execute(a,"second",sig);
         vm.expectRevert();target.evaluate("");assertEq(module.writes(),0);
+    }
+    function registration(bytes32 salt, uint256 nonce) internal view returns (ClausApprovalExecutor.Registration memory) {
+        return ClausApprovalExecutor.Registration(executor.projectKey(vm.addr(OWNER_KEY), salt), vm.addr(OWNER_KEY),
+            salt, address(first), address(first).codehash, keccak256("first"), MANDATE, POLICY, 1 hours,
+            nonce, uint64(block.timestamp + 1 days));
+    }
+    function testAttackerCannotSquatAnotherOwnersProjectId() public {
+        ClausApprovalExecutor.Registration memory r = registration(keccak256("next-project"), 1);
+        bytes memory ownerSig = signature(OWNER_KEY, executor.registrationDigest(r));
+        ClausApprovalExecutor.Registration memory attack = registration(keccak256("next-project"), 1);
+        attack.owner = vm.addr(0xBAD);
+        bytes memory badSig = signature(0xBAD, executor.registrationDigest(attack));
+        vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector);
+        executor.registerProject(attack, "first", badSig);
+        address created = executor.registerProject(r, "first", ownerSig);
+        assertEq(ClausReadonlyProject(created).projectId(), r.projectId);
+    }
+    function testRegistrationCanBeCancelledAndDelayCannotBeZero() public {
+        ClausApprovalExecutor.Registration memory r = registration(keccak256("cancelled"), 1);
+        bytes memory sig = signature(OWNER_KEY, executor.registrationDigest(r));
+        vm.prank(vm.addr(OWNER_KEY)); executor.cancelRegistration(1);
+        vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector); executor.registerProject(r, "first", sig);
+        r.nonce = 2; r.minDelaySeconds = 0; sig = signature(OWNER_KEY, executor.registrationDigest(r));
+        vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector); executor.registerProject(r, "first", sig);
+    }
+    function testFuzzOutOfRangeDelaysAreRejected(uint64 delay) public {
+        vm.assume(delay > 365 days);
+        vm.expectRevert(ClausApprovalExecutor.InvalidRecovery.selector);
+        new ClausApprovalExecutor(vm.addr(CLAUS_KEY), address(this), delay);
+        vm.prank(vm.addr(OWNER_KEY)); vm.expectRevert(ClausApprovalExecutor.InvalidPolicy.selector);
+        executor.setPolicy(ID, POLICY, delay);
+        ClausApprovalExecutor.Registration memory r = registration(keccak256("large-delay"), 1);
+        r.minDelaySeconds = delay; bytes memory sig = signature(OWNER_KEY, executor.registrationDigest(r));
+        vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector); executor.registerProject(r, "first", sig);
+    }
+    function testQueueRejectsEmptyExecutionWindow() public {
+        ClausApprovalExecutor.Approval memory a = approval();
+        a.expiresAt = uint64(block.timestamp + 1 hours);
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+        a = approval(); a.notBefore = a.expiresAt; sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+    }
+    function testRecoveryPausesImmediatelyAndCancellationCannotRestoreOldApprovals() public {
+        ClausApprovalExecutor.Approval memory a = approval(); bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig); executor.scheduleSignerRecovery(vm.addr(0xBEEF));
+        vm.warp(block.timestamp + 1 hours);
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.execute(a, "second", sig);
+        a.clausGeneration = executor.clausGeneration(); sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+        executor.cancelSignerRecovery();
+        a = approval(); sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+    }
+    function testClausCanWithdrawOneApprovalWithoutDisablingTheProject() public {
+        ClausApprovalExecutor.Approval memory a = approval(); bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        vm.prank(vm.addr(CLAUS_KEY)); executor.cancelApproval(ID, a.nonce);
+        vm.warp(block.timestamp + 1 hours);
+        vm.expectRevert(ClausApprovalExecutor.AlreadyExecuted.selector); executor.execute(a, "second", sig);
+        a.nonce++; sig = signature(CLAUS_KEY, executor.approvalDigest(a)); executor.queue(a, sig);
+    }
+    function testOwnerTransferSuspendsUpgradesAndRequiresFreshMandate() public {
+        ClausApprovalExecutor.Approval memory a = approval(); bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        address next = vm.addr(0xCAFE);
+        vm.prank(vm.addr(OWNER_KEY)); executor.proposeProjectOwner(ID, next);
+        vm.expectRevert(ClausApprovalExecutor.OwnerOnly.selector); executor.acceptProjectOwner(ID);
+        vm.warp(block.timestamp + 1 hours);
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.execute(a, "second", sig);
+        vm.prank(next); executor.acceptProjectOwner(ID);
+        vm.prank(vm.addr(OWNER_KEY)); vm.expectRevert(ClausApprovalExecutor.OwnerOnly.selector);
+        executor.setAuthority(ID, MANDATE, true);
+        (address owner,, bytes32 mandate,,,, uint64 generation, bool enabled) = executor.projects(ID);
+        assertEq(owner, next); assertEq(mandate, bytes32(0)); assertFalse(enabled);
+        vm.prank(next); executor.setAuthority(ID, MANDATE, true);
+        a.authorityGeneration = generation + 1; sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        vm.warp(executor.readyAt(executor.approvalDigest(a)));
+        executor.execute(a, "second", sig);
+    }
+    function testChangedModuleBytecodeCannotServeUnapprovedResults() public {
+        vm.etch(address(first), hex"600060005260206000f3");
+        vm.expectRevert(ClausReadonlyProject.InvalidModule.selector); target.evaluate("");
     }
 }

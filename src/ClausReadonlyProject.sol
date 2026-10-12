@@ -15,6 +15,7 @@ contract ClausReadonlyProject {
     address public immutable executor;
     bytes32 public immutable projectId;
     address public implementation;
+    bytes32 public implementationCodeHash;
     uint64 public version;
     bytes public configuration;
 
@@ -31,6 +32,7 @@ contract ClausReadonlyProject {
 
     function evaluate(bytes calldata input) external view returns (bytes memory) {
         if (input.length > 8192) revert OversizedConfiguration();
+        if (implementation.codehash != implementationCodeHash) revert InvalidModule();
         return IClausReadonlyModule(implementation).evaluate{gas: 200_000}(configuration, input);
     }
 
@@ -38,6 +40,7 @@ contract ClausReadonlyProject {
         if (module.code.length == 0 || module == address(this) || module == executor) revert InvalidModule();
         if (config.length > 8192) revert OversizedConfiguration();
         implementation = module;
+        implementationCodeHash = module.codehash;
         configuration = config;
         ++version;
     }
