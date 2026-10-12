@@ -40,7 +40,20 @@
     "lib/forge-std/src/StdAssertions.sol": "203de35565c3d68b6599f84e88068f79c23b53a80d18c46056e85d4c5f48613c",
     "lib/forge-std/src/safeconsole.sol": "fd74d8ed377e1470217cd6dce7699dcbc4e79b3893f17ae2a298c0e7e4418181",
     "src/ClausBalanceLens.sol": "550bf939f18393ea4a6216aed7df14c53054c3b0d54670e55c143ad13e5d0ff4",
-    "test/ClausBalanceLens.t.sol": "57ccca0ab23d8508a584173a31485a84332704b7846e135dac3b2297d868fd17"
+    "test/ClausBalanceLens.t.sol": "57ccca0ab23d8508a584173a31485a84332704b7846e135dac3b2297d868fd17",
+    "lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol": "9c3a75a925a6dac9e88b03cddc58d42fe3131b0aaaad84408521f3f7af2f991b",
+    "lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol": "dfb3f56fa928a7c6cae41a7ce2c86b9210fa18d33fa26389099d66a0fa790368",
+    "lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol": "0158e2d3e0e28bedd99eec13dcf1a8aa3a70a5b7e4bb2ad709609c95fcc740d1",
+    "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": "01b6f5c4fa45fd38822b286ecef6daf983d27306dd6362496fa71b3e4600b72c",
+    "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": "c2394cb2a327f234711da34884947f4aa0f6dd2791d1d6303a0c7acfaf81bca3",
+    "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol": "94e409e8f6e3184236651a6cc2b1a6a3ea0f0a25eb85b71e524ad5791bb2fbc8",
+    "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": "9055c2994b37dea1a41b7b7926dcb510f05dbe2540b0aafc5fbee9558fffd0ca",
+    "src/ClausProjectWallet.sol": "0c5a188de295214555717c26e4bc38580b77ac765dd8f3c7bcd1ebe69828fe1d",
+    "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol": "fa7068f56bc180571a6095be6eaef06d51dbe81e30cb128397d993c9599ecc30",
+    "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": "50f34ae16a067a41c2c1091445d11d63788e54c717677cb6d6b0e4cdea2ad21d",
+    "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": "0b7132f17d14d1d84b41b0bb429be62dafdff00fd3470f68724d8018eb07f57a",
+    "lib/openzeppelin-contracts/contracts/utils/Context.sol": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6",
+    "test/ClausProjectWallet.t.sol": "e21bb839b695f844eabae5dbc1a75b1b26fa2968e6e460022ca39a623afeb301"
   },
   "dependencies": {
     "openzeppelin-contracts": "5fd1781b1454fd1ef8e722282f86f9293cacf256",

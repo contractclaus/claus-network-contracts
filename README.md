@@ -15,3 +15,9 @@ Run `forge test` with Foundry and Solidity 0.8.27. Exact vendored dependencies a
 Candidate under review. Production deployment addresses and verification receipts will be added only after actual confirmation.
 
 Authority revocation suspends future upgrades; it does not disable public reads from the installed module. Cancel stale owner-transfer proposals explicitly. The off-chain admission profile only deploys reviewed, read-only module interfaces with no constructor arguments; arbitrary proxy or delegated module addresses are not supported. See AUDIT_RESPONSE.md for the current candidate and retained trust assumptions.
+
+## Project wallet candidate
+
+`ClausProjectWallet` is an additional, undeployed M2 candidate. It keeps an immutable project owner and recipient-bound, asset-bound payment sessions with per-payment and total limits, expiry, generation invalidation and quote/nonce replay protection. A session can transfer only its specified asset to its specified recipient. It cannot create sessions, approve tokens or execute arbitrary calls. The owner retains full withdrawal and recovery authority through `ownerCall`, independently of Claus. Owner-key rotation is outside this version; a new wallet and owner-authorized migration are required. The network does not automatically fund a wallet.
+
+ERC20 amounts are nominal token units; a token may charge fees, rebase or have mutable behavior. Service-payment adapters must admit and verify their supported assets independently. A payment event is not proof that a provider delivered useful work. This candidate has seven local Foundry tests, including 256 fuzz cases, and awaits independent review and deployment verification. It is not part of the v3 approval-executor review at commit `2594aa2dd8285736c7b60fdf31e05095e6ff21dc`.
