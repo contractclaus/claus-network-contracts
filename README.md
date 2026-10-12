@@ -14,4 +14,4 @@ Run `forge test` with Foundry and Solidity 0.8.27. Exact vendored dependencies a
 
 Candidate under review. Production deployment addresses and verification receipts will be added only after actual confirmation.
 
-Authority revocation suspends future upgrades; it does not disable public reads from the installed module. Cancel stale owner-transfer proposals explicitly. The off-chain admission profile only deploys reviewed, constructor-free read-only module interfaces; arbitrary proxy or delegated module addresses are not supported. See AUDIT_RESPONSE.md for the current candidate and retained trust assumptions.
+Authority revocation suspends future upgrades; it does not disable public reads from the installed module. Cancel stale owner-transfer proposals explicitly. The off-chain admission profile only deploys reviewed, read-only module interfaces with no constructor arguments; arbitrary proxy or delegated module addresses are not supported. See AUDIT_RESPONSE.md for the current candidate and retained trust assumptions.
