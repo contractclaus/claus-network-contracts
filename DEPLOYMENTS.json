@@ -1,0 +1,64 @@
+{
+  "chainId": 11155111,
+  "network": "Ethereum Sepolia",
+  "contracts": [
+    {
+      "chainId": 11155111,
+      "profile": "claus-readonly-v1",
+      "contract": "ClausApprovalExecutor",
+      "address": "0x9806bcbc514468231e0f2cdca6dcac874e98a8e7",
+      "transactionHash": "0xe554dd7bf1642cbf6c05669223a11ed4af5a5dc7ee85936d92fa59e9001e8989",
+      "codeHash": "0x6a66da67c8150c03bb7275135dd579f2cc216f1adda04c0f4dc6b2efaf7fee54",
+      "constructorArguments": "0x0000000000000000000000007c6fd554e6ca80914374c56a62351786053c0329000000000000000000000000bb145ca83272c3806d4ddc75ca1d5514789cf1c5000000000000000000000000000000000000000000000000000000000002a300",
+      "approvalSigner": "0x7C6Fd554E6CA80914374C56A62351786053c0329",
+      "recoveryOwner": "0xBb145cA83272c3806D4dDc75cA1D5514789cF1C5",
+      "recoveryDelay": 172800,
+      "sourceCommit": "2594aa2dd8285736c7b60fdf31e05095e6ff21dc",
+      "buildHash": "sha256:70bfcfd07a48262cecb57491dbabb2fd1a69942b94edf985d5685991d3277650",
+      "reviewArtifactHash": "sha256:24904cfd6424fbfbcb4aed2b43eb46e6b0f4797d137350abf58651dc4de4f7e9",
+      "compiler": "0.8.27+commit.40a35a09.Emscripten.clang",
+      "settings": {
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "abi",
+              "evm.bytecode",
+              "evm.deployedBytecode",
+              "metadata",
+              "storageLayout"
+            ]
+          }
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+        ],
+        "viaIR": true
+      },
+      "verification": {
+        "id": "sha256:c13ae5010a1bb73deb9a8156b316f7fca96902b3158a8f6df4cf400071936f29",
+        "state": "verified",
+        "address": "0x9806bcbc514468231e0f2cdca6dcac874e98a8e7",
+        "chainId": 11155111,
+        "checkedAt": 1791784171369,
+        "inputHash": "sha256:9ac99e3b56dbb1dc7c47f7b4d3a51406a82b94917e7545a1be9a3bec8747d1eb",
+        "sourcifyId": "860a4360-cd41-4a3c-9b0d-28c57cac9c9e",
+        "explorerUrl": "https://sepolia.etherscan.io/address/0x9806bcbc514468231e0f2cdca6dcac874e98a8e7#code",
+        "sourcifyUrl": "https://repo.sourcify.dev/11155111/0x9806bcbc514468231e0f2cdca6dcac874e98a8e7",
+        "etherscanMatch": "exact",
+        "etherscanVerified": true,
+        "etherscanAttemptAt": 1791784146068,
+        "runtimeMatch": "exact_match",
+        "creationMatch": "exact_match"
+      },
+      "checkedAt": "2026-10-12T05:49:32.172Z"
+    }
+  ]
+}

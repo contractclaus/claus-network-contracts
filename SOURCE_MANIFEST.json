@@ -1,5 +1,5 @@
 {
-  "status": "review-candidate-not-deployed",
+  "status": "mixed-see-README-and-DEPLOYMENTS",
   "compiler": "0.8.27",
   "files": {
     "test/ClausApprovalExecutor.t.sol": "4a20e3fbc633c8e6399dbe6f31964fa56eec2539d94dc3a753a71cfa5a3270e8",
@@ -53,7 +53,10 @@
     "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": "50f34ae16a067a41c2c1091445d11d63788e54c717677cb6d6b0e4cdea2ad21d",
     "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": "0b7132f17d14d1d84b41b0bb429be62dafdff00fd3470f68724d8018eb07f57a",
     "lib/openzeppelin-contracts/contracts/utils/Context.sol": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6",
-    "test/ClausProjectWallet.t.sol": "0a44a667675afa7ba9bb249bfabdc9d97452de821ab54fc0cda51b2cdc869d50"
+    "test/ClausProjectWallet.t.sol": "0a44a667675afa7ba9bb249bfabdc9d97452de821ab54fc0cda51b2cdc869d50",
+    "src/ClausNativeVault.sol": "a1d74f600d75162d275f99ae8df9337a9d59dac244b70f4494f7a185e345167c",
+    "src/ClausVaultAdmission.sol": "d8068a7565a659ed3047dcd78b0e0738cebd5662ce2a0811ef7d638494a0e804",
+    "test/ClausNativeVault.t.sol": "6ef8d421bd2d53d334951ca033a6c3488e39fd4fb4da3c79aacac033f36da6a1"
   },
   "dependencies": {
     "openzeppelin-contracts": "5fd1781b1454fd1ef8e722282f86f9293cacf256",
