@@ -1,0 +1,254 @@
+{
+  "chainId": 1,
+  "network": "Ethereum",
+  "checkedAt": "2026-10-12T23:33:02.355Z",
+  "scope": "Source-verified readonly approval executor; finite public admission. Reference module and project evidence are linked separately.",
+  "activeDefaultExecutor": "0x892FA49D0c38E949DEb827Db66590fbaEAA34af8",
+  "contracts": [
+    {
+      "chainId": 1,
+      "contract": "ClausApprovalExecutor",
+      "profile": "claus-readonly-v1",
+      "address": "0x892FA49D0c38E949DEb827Db66590fbaEAA34af8",
+      "transactionHash": "0x23a0021c8081a68fe20b31a149d9d88a834ebfba9e30d8b16a6adc95bcd048c7",
+      "codeHash": "0x17134ca82584d05ffa4f70327ba5031632ff1d04db6a42eb4fed7e7d61c30ef7",
+      "constructorArguments": "0x00000000000000000000000040411c03f0e0160a09dde6d75f1b1cf36aed651f000000000000000000000000bb145ca83272c3806d4ddc75ca1d5514789cf1c5000000000000000000000000000000000000000000000000000000000002a300",
+      "sourceCommit": "af8cf6370d5b3893fa5b38df251d4b27b5db5f8d",
+      "publicSource": {
+        "repository": "https://github.com/contractclaus/claus-network-contracts",
+        "commit": "0acc594a430b6aca1838337389723726000538ea",
+        "url": "https://github.com/contractclaus/claus-network-contracts/tree/0acc594a430b6aca1838337389723726000538ea",
+        "entry": "src/ClausApprovalExecutor.sol",
+        "allStandardInputSourcesExact": true,
+        "files": [
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol",
+            "sha256": "2d17bba201aa2f9c55e317315b872272a60361848dfceb6b1e77081265c79a27",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol",
+            "sha256": "9c3a75a925a6dac9e88b03cddc58d42fe3131b0aaaad84408521f3f7af2f991b",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol",
+            "sha256": "dfb3f56fa928a7c6cae41a7ce2c86b9210fa18d33fa26389099d66a0fa790368",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol",
+            "sha256": "0158e2d3e0e28bedd99eec13dcf1a8aa3a70a5b7e4bb2ad709609c95fcc740d1",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol",
+            "sha256": "f89772d2d4fafcbef8b73bb10ee9a3373edec2eedb2f1b302320915b351dc3d1",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/IERC7913.sol",
+            "sha256": "f66aad4249885b0f11369bfa825dded60aa4baa0d76d9becdac9daa48c350350",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol",
+            "sha256": "fa7068f56bc180571a6095be6eaef06d51dbe81e30cb128397d993c9599ecc30",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+            "sha256": "50f34ae16a067a41c2c1091445d11d63788e54c717677cb6d6b0e4cdea2ad21d",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+            "sha256": "01b6f5c4fa45fd38822b286ecef6daf983d27306dd6362496fa71b3e4600b72c",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+            "sha256": "0b7132f17d14d1d84b41b0bb429be62dafdff00fd3470f68724d8018eb07f57a",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
+            "sha256": "c2394cb2a327f234711da34884947f4aa0f6dd2791d1d6303a0c7acfaf81bca3",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/Bytes.sol",
+            "sha256": "3ce9120a27934c75a074cb785d3a88868069ef6529dbe4dc6b845af0836f3c70",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/Context.sol",
+            "sha256": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/Panic.sol",
+            "sha256": "270fc8401c1a13fae6a7a4a2dd6e381b95d658896701e51f0d3e2688acab3dec",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol",
+            "sha256": "94e409e8f6e3184236651a6cc2b1a6a3ea0f0a25eb85b71e524ad5791bb2fbc8",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol",
+            "sha256": "1cfa08d3c551e9ec0b9cd249b09987f04e7e90f352e1a5e3b0d6a3bc426b3de7",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol",
+            "sha256": "75704538dcb223239280c6726d9a31cf769a7816718517c997fc7d63bdb70778",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+            "sha256": "e318709bbe73a7831d64c1351e8bdc43780b245f25191234e361e6ab9b98c67b",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol",
+            "sha256": "ba7c2d314fcd61c9783e0b3f0c664d004b76b408fda6a84edc8267d17c5012d6",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol",
+            "sha256": "2845caaaf70757b6cce612ae4ffbec2c382cb3d1cb9765c98fa649c0f5f1c794",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol",
+            "sha256": "538a0d7c4f0ec5a8562f58561890f7b49d14580674ecf58bc5f505b45c73df65",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol",
+            "sha256": "acc520422fac0a9edb85d7268085a63219a0db9e4406cd155d5c74c94e35f590",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+            "sha256": "9055c2994b37dea1a41b7b7926dcb510f05dbe2540b0aafc5fbee9558fffd0ca",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+            "sha256": "bdfdbe133991c0c78042957ff5cd97167926fcaf6d15664f3835a076cb066457",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+            "sha256": "5779bc848bde39f1ad7bc02b4f708a0040888e0083b1a33f119cd94639350134",
+            "remoteExact": true
+          },
+          {
+            "path": "lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol",
+            "sha256": "1ed50b1056af886752f0fb48a0165d381e69bb4a4b18b893b066dc144a7e08d7",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausApprovalExecutor.sol",
+            "sha256": "92df12300de383b7a5c113f43160ee95eb7f3edf25e83178d8bfbf005446a6df",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausBalanceLens.sol",
+            "sha256": "550bf939f18393ea4a6216aed7df14c53054c3b0d54670e55c143ad13e5d0ff4",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausNativeVault.sol",
+            "sha256": "a1d74f600d75162d275f99ae8df9337a9d59dac244b70f4494f7a185e345167c",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausProjectWallet.sol",
+            "sha256": "8e607acbbf9ff47ff4edd1e9519ee710b215e7fb660b745cb472151ecbc1f556",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausReadonlyProject.sol",
+            "sha256": "7c7fe172382a767b3700daac415fedb297b57ffe5c932deba561fffc1bbe75a1",
+            "remoteExact": true
+          },
+          {
+            "path": "src/ClausVaultAdmission.sol",
+            "sha256": "d8068a7565a659ed3047dcd78b0e0738cebd5662ce2a0811ef7d638494a0e804",
+            "remoteExact": true
+          }
+        ]
+      },
+      "buildHash": "sha256:ff51e0cbe2db258277f6e98fbf34403c2aed6fe65ef7469d1115e196cd874acb",
+      "compiler": "0.8.27+commit.40a35a09.Emscripten.clang",
+      "settings": {
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "abi",
+              "evm.bytecode",
+              "evm.deployedBytecode",
+              "metadata",
+              "storageLayout"
+            ]
+          }
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+        ],
+        "viaIR": true
+      },
+      "approvalSigner": "0x40411C03F0E0160A09dde6D75f1B1cf36aeD651f",
+      "recoveryOwner": "0xBb145cA83272c3806D4dDc75cA1D5514789cF1C5",
+      "recoveryDelay": 172800,
+      "minimumUpgradeDelay": 0,
+      "creationFinalized": true,
+      "receipt": {
+        "status": "success",
+        "gasUsed": "2760868",
+        "blockHash": "0xaeee2dfd86ac30d5679662dbe70dba7e0bae56e83189ea80214f5d38a034fd6b",
+        "blockNumber": "26179059",
+        "contractAddress": "0x892fa49d0c38e949deb827db66590fbaeaa34af8",
+        "transactionHash": "0x23a0021c8081a68fe20b31a149d9d88a834ebfba9e30d8b16a6adc95bcd048c7",
+        "effectiveGasPrice": "76398868"
+      },
+      "verification": {
+        "id": "sha256:6604e3cc3fa3131941ce1e898d32c4f6a0d8214a75e81042863575fb701c0fd5",
+        "state": "verified",
+        "address": "0x892FA49D0c38E949DEb827Db66590fbaEAA34af8",
+        "chainId": 1,
+        "checkedAt": 1791841112700,
+        "inputHash": "sha256:0cb79534046342870f7abce85d6680aebaeb05fa9edbd0bbcb9af57bb3580172",
+        "sourcifyId": null,
+        "explorerUrl": "https://etherscan.io/address/0x892FA49D0c38E949DEb827Db66590fbaEAA34af8#code",
+        "sourcifyUrl": "https://repo.sourcify.dev/1/0x892FA49D0c38E949DEb827Db66590fbaEAA34af8",
+        "runtimeMatch": "exact_match",
+        "creationMatch": "exact_match",
+        "etherscanGuid": "mhjlc3jzvnpz12gyjebhc52fydw6kjmn4gpk7x9ywa1hnnuhfu",
+        "etherscanMatch": "exact",
+        "etherscanState": "verified",
+        "etherscanRefusals": 0,
+        "etherscanVerified": true,
+        "etherscanAttemptAt": 1791841070381,
+        "etherscanRetryExhausted": false,
+        "sourcifyAlreadyVerified": true,
+        "etherscanSubmissionCount": 1
+      }
+    }
+  ],
+  "referenceUrl": "https://claus.si/p/mainnet-contract-reference",
+  "referenceEvidenceUrl": "https://claus.si/docs/reference-mainnet-contract.json",
+  "expiresAt": 1792434601756
+}
