@@ -66,8 +66,11 @@ contract ClausProjectWalletTest is Test {
         vm.expectRevert(ClausProjectWallet.InvalidPayment.selector);wallet.pay(p,signature);
         ClausProjectWallet.SessionAuthorization memory s=session(address(0));bytes memory old=sig(OWNER_KEY,wallet.sessionDigest(s));
         vm.expectRevert(ClausProjectWallet.InvalidSession.selector);wallet.authorizeSession(s,old);
-        s.generation=3;wallet.authorizeSession(s,sig(OWNER_KEY,wallet.sessionDigest(s)));
+        s.generation=3;bytes memory future=sig(OWNER_KEY,wallet.sessionDigest(s));
+        vm.expectRevert(ClausProjectWallet.InvalidSession.selector);wallet.authorizeSession(s,future);
         vm.expectRevert(ClausProjectWallet.InvalidPayment.selector);wallet.pay(p,signature);
+        s.sessionId=keccak256("fresh-session");s.generation=1;
+        wallet.authorizeSession(s,sig(OWNER_KEY,wallet.sessionDigest(s)));
     }
     function testExpiryAndCrossChainSignatureFail() public {
         grant(address(0));ClausProjectWallet.Payment memory p=payment(address(0),1);bytes memory signature=sig(SESSION_KEY,wallet.paymentDigest(p));
@@ -77,12 +80,25 @@ contract ClausProjectWalletTest is Test {
     function testTokenPaymentsAndFailedTransferPreserveAllowance() public {
         WalletTestToken token=new WalletTestToken();grant(address(token));ClausProjectWallet.Payment memory p=payment(address(token),1);
         bytes memory signature=sig(SESSION_KEY,wallet.paymentDigest(p));vm.expectRevert();wallet.pay(p,signature);
-        assertFalse(wallet.paymentNonces(1));assertFalse(wallet.paidQuotes(p.quoteHash));
+        assertFalse(wallet.paymentNonces(SESSION,1));assertFalse(wallet.paidQuotes(SESSION,p.quoteHash));
         token.mint(address(wallet),2 ether);pay(p);assertEq(token.balanceOf(RECIPIENT),1 ether);
     }
     function testFuzzCannotExceedPerPayment(uint128 extra) public {
         extra=uint128(bound(extra,1,type(uint128).max-1 ether));grant(address(0));ClausProjectWallet.Payment memory p=payment(address(0),1);
         p.amount+=extra;bytes memory signature=sig(SESSION_KEY,wallet.paymentDigest(p));
         vm.expectRevert(ClausProjectWallet.InvalidPayment.selector);wallet.pay(p,signature);
+    }
+    function testOtherSessionCannotBurnNonceOrQuote() public {
+        grant(address(0));
+        ClausProjectWallet.SessionAuthorization memory other=session(address(0));
+        other.sessionId=keccak256("other");other.signer=vm.addr(0xBAD);other.recipient=address(0xBAD);
+        wallet.authorizeSession(other,sig(OWNER_KEY,wallet.sessionDigest(other)));
+        ClausProjectWallet.Payment memory legitimate=payment(address(0),1);
+        ClausProjectWallet.Payment memory grief=payment(address(0),1);
+        grief.sessionId=other.sessionId;grief.recipient=other.recipient;grief.amount=1;
+        wallet.pay(grief,sig(0xBAD,wallet.paymentDigest(grief)));
+        pay(legitimate);
+        assertEq(RECIPIENT.balance,1 ether);assertEq(other.recipient.balance,1);
+        rejectPayment(legitimate);
     }
 }

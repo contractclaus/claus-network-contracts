@@ -59,8 +59,9 @@ contract ClausProjectWallet is EIP712, ReentrancyGuard {
         uint64 deadline;
     }
     mapping(bytes32 => Session) public sessions;
-    mapping(uint256 => bool) public paymentNonces;
-    mapping(bytes32 => bool) public paidQuotes;
+    mapping(bytes32 => mapping(uint256 => bool)) public paymentNonces;
+    mapping(bytes32 => mapping(bytes32 => bool)) public paidQuotes;
+    mapping(bytes32 => bool) public revokedSessions;
 
     event SessionAuthorized(bytes32 indexed sessionId, address indexed signer, address indexed recipient,
         address asset, uint128 perPayment, uint128 total, uint64 validAfter, uint64 validUntil, uint64 generation);
@@ -83,7 +84,7 @@ contract ClausProjectWallet is EIP712, ReentrancyGuard {
         return _hashTypedDataV4(keccak256(abi.encode(PAYMENT_TYPEHASH, p)));
     }
     function authorizeSession(SessionAuthorization calldata s, bytes calldata signature) external nonReentrant {
-        if (s.sessionId == bytes32(0) || s.signer == address(0) || s.recipient == address(0) || s.recipient == address(this)
+        if (s.sessionId == bytes32(0) || revokedSessions[s.sessionId] || s.signer == address(0) || s.recipient == address(0) || s.recipient == address(this)
             || (s.asset != address(0) && s.asset.code.length == 0) || s.perPayment == 0 || s.total < s.perPayment
             || s.validUntil <= block.timestamp || s.validAfter >= s.validUntil || s.validUntil > block.timestamp + 30 days
             || s.deadline < block.timestamp || s.deadline > s.validUntil || s.generation != sessions[s.sessionId].generation + 1) {
@@ -98,6 +99,9 @@ contract ClausProjectWallet is EIP712, ReentrancyGuard {
     function revokeSession(bytes32 sessionId) external {
         if (msg.sender != owner) revert OwnerOnly();
         Session storage s = sessions[sessionId];
+        // Revocation retires this identifier permanently. A fresh grant uses a
+        // fresh ID, so no pre-signed future generation can reopen this session.
+        revokedSessions[sessionId] = true;
         ++s.generation;
         s.signer = address(0);
         emit SessionRevoked(sessionId, s.generation);
@@ -108,11 +112,11 @@ contract ClausProjectWallet is EIP712, ReentrancyGuard {
             || p.amount == 0 || p.amount > s.perPayment || uint256(s.spent) + p.amount > s.total
             || block.timestamp < s.validAfter || block.timestamp >= s.validUntil
             || block.timestamp > p.deadline || p.deadline > s.validUntil || p.quoteHash == bytes32(0)
-            || paymentNonces[p.nonce] || paidQuotes[p.quoteHash]) revert InvalidPayment();
+            || paymentNonces[p.sessionId][p.nonce] || paidQuotes[p.sessionId][p.quoteHash]) revert InvalidPayment();
         if (!SignatureChecker.isValidSignatureNow(s.signer, paymentDigest(p), signature)) revert InvalidSignature();
         s.spent += p.amount;
-        paymentNonces[p.nonce] = true;
-        paidQuotes[p.quoteHash] = true;
+        paymentNonces[p.sessionId][p.nonce] = true;
+        paidQuotes[p.sessionId][p.quoteHash] = true;
         if (p.asset == address(0)) {
             (bool ok,) = p.recipient.call{value:p.amount}("");
             if (!ok) revert CallFailed();
