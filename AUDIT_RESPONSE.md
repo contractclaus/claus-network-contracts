@@ -1,5 +1,13 @@
 # Audit response, 12 October 2026
 
+## Current delay policy
+
+The owner removed the mandatory one-hour upgrade floor on 12 October 2026. Candidate `bc642d36d5eafffcd04859574219acfa7a3bb27d` accepts zero through 365 days at registration; the network API currently admits at most five days. A project's accepted delay can subsequently be raised, not lowered. With zero delay, a valid approval may be queued and executed in the same transaction. There is no owner reaction window between those calls. Signatures, exact-code checks, expiry, generation checks and revocation still apply. The separate signer-recovery delay is unchanged.
+
+The responses below describe earlier reviewed candidates. Their one-hour floor was superseded by this explicit policy change. Source publication does not by itself activate a new executor or migrate an existing project.
+
+## Original candidate response
+
 Original candidate: `63e8dc823bd3ab242481b0b4b85f045e40fe369f`.
 IMD job: `016e8435-43ef-4f21-b18c-7dd290b796b2`. The final report is available. These changes require a new review and are not yet deployed.
 
