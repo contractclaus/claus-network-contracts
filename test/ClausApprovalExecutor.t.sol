@@ -186,4 +186,35 @@ contract ClausApprovalExecutorTest is Test {
         vm.etch(address(first), hex"600060005260206000f3");
         vm.expectRevert(ClausReadonlyProject.InvalidModule.selector); target.evaluate("");
     }
+    function testCancellingRecoveryInvalidatesSignaturesCreatedDuringThePause() public {
+        executor.scheduleSignerRecovery(vm.addr(0xBEEF));
+        ClausApprovalExecutor.Approval memory a = approval(); a.clausGeneration = executor.clausGeneration();
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.cancelSignerRecovery();
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+    }
+    function testRetiringSignerCannotBurnNoncesDuringRecovery() public {
+        executor.scheduleSignerRecovery(vm.addr(0xBEEF));
+        vm.prank(vm.addr(CLAUS_KEY)); vm.expectRevert(ClausApprovalExecutor.OwnerOnly.selector);
+        executor.cancelApproval(ID, 999);
+        vm.prank(vm.addr(OWNER_KEY)); executor.cancelApproval(ID, 999);
+        assertTrue(executor.executionNonces(ID, 999));
+    }
+    function testQueueRejectsSelfAndExecutorModulesImmediately() public {
+        ClausApprovalExecutor.Approval memory a = approval(); a.implementation = address(target); a.toCodeHash = address(target).codehash;
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+        a.implementation = address(executor); a.toCodeHash = address(executor).codehash;
+        sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector); executor.queue(a, sig);
+    }
+    function testChangedOldModuleCanBeReplacedUsingItsPinnedVersion() public {
+        ClausApprovalExecutor.Approval memory a = approval();
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        vm.etch(address(first), hex"600060005260206000f3");
+        vm.expectRevert(ClausReadonlyProject.InvalidModule.selector); target.evaluate("");
+        executor.queue(a, sig); vm.warp(block.timestamp + 1 hours); executor.execute(a, "second", sig);
+        assertEq(target.implementation(), address(second));
+        assertEq(target.evaluate("read"), abi.encode(bytes("second"), bytes("read")));
+    }
 }

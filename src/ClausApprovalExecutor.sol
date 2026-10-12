@@ -85,7 +85,7 @@ contract ClausApprovalExecutor is EIP712 {
     mapping(bytes32 => uint256) public readyAt;
 
     event ProjectRegistered(bytes32 indexed projectId, address indexed target, address indexed owner, bytes32 mandateHash);
-    event ApprovalQueued(bytes32 indexed projectId, bytes32 indexed approvalHash, uint256 readyAt);
+    event ApprovalQueued(bytes32 indexed projectId, bytes32 indexed approvalHash, uint256 readyAt, uint256 nonce);
     event UpgradeExecuted(bytes32 indexed projectId, bytes32 indexed approvalHash, address implementation, uint64 version);
     event ProjectAuthorityChanged(bytes32 indexed projectId, uint64 generation, bytes32 mandateHash, bool enabled);
     event ProjectPolicyChanged(bytes32 indexed projectId, uint64 generation, bytes32 policyVersion, uint64 minDelaySeconds);
@@ -145,7 +145,7 @@ contract ClausApprovalExecutor is EIP712 {
             uint256 ready = earliest > a.notBefore ? earliest : a.notBefore;
             if (ready >= a.expiresAt) revert InvalidApproval();
             readyAt[hash] = ready;
-            emit ApprovalQueued(a.projectId, hash, readyAt[hash]);
+            emit ApprovalQueued(a.projectId, hash, readyAt[hash], a.nonce);
         }
     }
 
@@ -173,7 +173,8 @@ contract ClausApprovalExecutor is EIP712 {
 
     function cancelApproval(bytes32 id, uint256 nonce) external {
         Project storage p = projects[id];
-        if (p.target == address(0) || (msg.sender != p.owner && msg.sender != clausSigner)) revert OwnerOnly();
+        if (p.target == address(0) || (msg.sender != p.owner &&
+            (msg.sender != clausSigner || pendingSigner != address(0)))) revert OwnerOnly();
         executionNonces[id][nonce] = true;
         emit ApprovalCancelled(id, nonce);
     }
@@ -220,6 +221,7 @@ contract ClausApprovalExecutor is EIP712 {
     }
     function cancelSignerRecovery() external {
         if (msg.sender != recoveryOwner) revert OwnerOnly();
+        ++clausGeneration;
         pendingSigner = address(0);
         recoveryReadyAt = 0;
         emit SignerRecoveryCancelled();
@@ -243,9 +245,10 @@ contract ClausApprovalExecutor is EIP712 {
             || a.mandateHash != p.mandateHash || a.evidenceHash == bytes32(0)
             || a.dependencySnapshotHash == bytes32(0) || a.expiresAt <= block.timestamp
             || a.notBefore >= a.expiresAt || a.implementation.code.length == 0
+            || a.implementation == a.target || a.implementation == address(this)
             || a.implementation.codehash != a.toCodeHash
             || ClausReadonlyProject(a.target).version() != a.fromVersion
-            || ClausReadonlyProject(a.target).implementation().codehash != a.fromCodeHash) revert InvalidApproval();
+            || ClausReadonlyProject(a.target).implementationCodeHash() != a.fromCodeHash) revert InvalidApproval();
         if (executionNonces[a.projectId][a.nonce]) revert AlreadyExecuted();
     }
 }
