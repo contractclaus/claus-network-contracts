@@ -8,7 +8,7 @@ Modules run using STATICCALL and their bytecode hash is checked on every evaluat
 
 ## Bounded result candidate
 
-The current source additionally caps module output at 8,192 bytes, validates its ABI header and bounds returndata before copying or allocating it. Large reverts are not bubbled. This changes the kernel creation code embedded in the executor and therefore requires a separately reviewed deployment for new projects. It is a candidate, not a replacement of the active deployments below. The local contract suite passed 60 tests, including oversized and malformed output cases. Public admission and mainnet are not activated by this source publication.
+The current source additionally caps module output at 8,192 bytes, validates its ABI header and bounds returndata before copying or allocating it. Large reverts are not bubbled. This changes the kernel creation code embedded in the executor and therefore requires a separately reviewed deployment for new projects. It is a candidate, not a replacement of the active deployments below. The reviewed core revision `af8cf6370d5b3893fa5b38df251d4b27b5db5f8d` contains 48 tests, including oversized and malformed output cases. The earlier count of 60 also included 12 separate Inbox/client tests from the full network repository; those are outside this core snapshot. The subsequently added `ClausContentDigest` example has two additional local tests and is not covered by that core review. Public admission and mainnet are not activated by this source publication.
 
 ## Reproduce
 
@@ -28,7 +28,7 @@ Authority revocation suspends future upgrades; it does not disable public reads 
 
 ERC20 amounts are nominal token units; a token may charge fees, rebase or have mutable behavior. Service-payment adapters must admit and verify their supported assets independently. A payment event is not proof that a provider delivered useful work. The corrected wallet has local Foundry regressions and a separate independent review. Its [completed collaboration reference](https://github.com/contractclaus/claus-network/blob/main/docs/reference-collaboration.json) records two payments and retired sessions. It is not part of the v3 approval-executor review at commit `2594aa2dd8285736c7b60fdf31e05095e6ff21dc`.
 
-The wallet review found shared replay namespaces between sessions. Nonces and paid quote hashes are now scoped by session ID. The network separately prevents a second payment action for the same service order. Revoking a session permanently retires its ID, including pre-signed future renewals; subsequent authorization needs a fresh ID. Safe ERC721/ERC1155 receipt is unsupported by this payment wallet.
+The wallet review found shared replay namespaces between sessions. Nonces and paid quote hashes are now scoped by session ID. The network separately prevents a second payment action for the same service order. Payment nonces remain used for the lifetime of a session ID, including across generation renewals; clients must continue with unused nonces. A new generation does not restart its nonce sequence. Revoking a session permanently retires its ID, including pre-signed future renewals; subsequent authorization needs a fresh ID. Safe ERC721/ERC1155 receipt is unsupported by this payment wallet.
 
 ## Native vault
 
