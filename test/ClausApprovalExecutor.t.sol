@@ -54,6 +54,56 @@ contract ClausApprovalExecutorTest is Test {
         assertEq(target.implementation(),address(second));assertEq(target.version(),2);
         vm.expectRevert();executor.execute(a,"second",sig);
     }
+    function registerImmediateProject() internal {
+        bytes32 salt = keccak256("immediate-project");
+        ID = executor.projectKey(vm.addr(OWNER_KEY), salt);
+        ClausApprovalExecutor.Registration memory r = ClausApprovalExecutor.Registration(
+            ID, vm.addr(OWNER_KEY), salt, address(first), address(first).codehash,
+            keccak256("first"), MANDATE, POLICY, 0, 1, uint64(block.timestamp + 1 days)
+        );
+        target = ClausReadonlyProject(executor.registerProject(r, "first", signature(OWNER_KEY, executor.registrationDigest(r))));
+    }
+    function testZeroDelayExecutesExactApprovalAtTheSameTimestampOnlyOnce() public {
+        registerImmediateProject();
+        uint256 timestamp = block.timestamp;
+        ClausApprovalExecutor.Approval memory a = approval();
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        assertEq(executor.readyAt(executor.approvalDigest(a)), timestamp);
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector);
+        executor.execute(a, "tampered", sig);
+        executor.execute(a, "second", sig);
+        assertEq(block.timestamp, timestamp);
+        assertEq(target.implementation(), address(second));
+        assertEq(target.version(), 2);
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector);
+        executor.execute(a, "second", sig);
+    }
+    function testZeroDelayStillRequiresClausAndRespectsRevocation() public {
+        registerImmediateProject();
+        ClausApprovalExecutor.Approval memory a = approval();
+        bytes memory wrong = signature(OWNER_KEY, executor.approvalDigest(a));
+        vm.expectRevert(ClausApprovalExecutor.InvalidSignature.selector);
+        executor.queue(a, wrong);
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        vm.prank(vm.addr(OWNER_KEY));
+        executor.setAuthority(ID, MANDATE, false);
+        vm.expectRevert(ClausApprovalExecutor.InvalidApproval.selector);
+        executor.execute(a, "second", sig);
+    }
+    function testZeroDelayHonorsAnExplicitApprovalStartTime() public {
+        registerImmediateProject();
+        ClausApprovalExecutor.Approval memory a = approval();
+        a.notBefore = uint64(block.timestamp + 60);
+        bytes memory sig = signature(CLAUS_KEY, executor.approvalDigest(a));
+        executor.queue(a, sig);
+        assertEq(executor.readyAt(executor.approvalDigest(a)), a.notBefore);
+        vm.expectRevert(ClausApprovalExecutor.NotReady.selector);
+        executor.execute(a, "second", sig);
+        vm.warp(a.notBefore);
+        executor.execute(a, "second", sig);
+    }
     function testDirectAndUnsignedChangesFail() public {
         vm.expectRevert(ClausReadonlyProject.ExecutorOnly.selector);target.applyUpgrade(address(second),"");
         ClausApprovalExecutor.Approval memory a=approval();
@@ -118,13 +168,16 @@ contract ClausApprovalExecutorTest is Test {
         address created = executor.registerProject(r, "first", ownerSig);
         assertEq(ClausReadonlyProject(created).projectId(), r.projectId);
     }
-    function testRegistrationCanBeCancelledAndDelayCannotBeZero() public {
+    function testRegistrationCanBeCancelledAndFreshZeroDelayRegistrationWorks() public {
         ClausApprovalExecutor.Registration memory r = registration(keccak256("cancelled"), 1);
         bytes memory sig = signature(OWNER_KEY, executor.registrationDigest(r));
         vm.prank(vm.addr(OWNER_KEY)); executor.cancelRegistration(1);
         vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector); executor.registerProject(r, "first", sig);
         r.nonce = 2; r.minDelaySeconds = 0; sig = signature(OWNER_KEY, executor.registrationDigest(r));
-        vm.expectRevert(ClausApprovalExecutor.InvalidRegistration.selector); executor.registerProject(r, "first", sig);
+        address created = executor.registerProject(r, "first", sig);
+        assertEq(ClausReadonlyProject(created).projectId(), r.projectId);
+        (,,,, uint64 delay,,,) = executor.projects(r.projectId);
+        assertEq(delay, 0);
     }
     function testFuzzOutOfRangeDelaysAreRejected(uint64 delay) public {
         vm.assume(delay > 365 days);

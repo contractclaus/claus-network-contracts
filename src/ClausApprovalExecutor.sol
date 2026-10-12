@@ -17,7 +17,9 @@ contract ClausApprovalExecutor is EIP712 {
     error InvalidPolicy();
     error InvalidRecovery();
 
-    uint64 public constant MIN_UPGRADE_DELAY = 1 hours;
+    /// Projects may execute as soon as Claus approves. A project can explicitly
+    /// opt into a longer delay when it registers; accepted delays stay binding.
+    uint64 public constant MIN_UPGRADE_DELAY = 0;
     uint64 public constant MAX_DELAY = 365 days;
 
     bytes32 public constant REGISTRATION_TYPEHASH = keccak256(
