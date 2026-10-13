@@ -1,0 +1,426 @@
+{
+  "checkedAt": "2026-10-13T09:01:15.703Z",
+  "scope": "Source-verified infrastructure only. Signal profile and Mainnet intake are not yet publicly activated; consult live capabilities.",
+  "publicAdmission": false,
+  "capabilities": "https://claus-network-api.vercel.app/v1/public/capabilities",
+  "contracts": [
+    {
+      "chainId": 1,
+      "contract": "ClausSignalFactory",
+      "address": "0x16f47ddec1b5b124b57cc9847a550f15b6de24bd",
+      "transactionHash": "0xe89dba8b1e900a1f65d3f400fe1387077f803cdddc91c78c8b779d653b2832dc",
+      "codeHash": "0x8525463a0a537a7a55f1d30b5c5a283a7304af6a4a08c22869919508ed21e978",
+      "receipt": {
+        "status": "success",
+        "gasUsed": "2526421",
+        "blockHash": "0xbec4911271dc38e27a276c5e008111ff3b6731779e0a59e63223de17cc22abf5",
+        "blockNumber": "26180386",
+        "contractAddress": "0x16f47ddec1b5b124b57cc9847a550f15b6de24bd",
+        "transactionHash": "0xe89dba8b1e900a1f65d3f400fe1387077f803cdddc91c78c8b779d653b2832dc",
+        "effectiveGasPrice": "67960438"
+      },
+      "verification": {
+        "id": "sha256:3ed7c3ed8c6a68dd14275abc9cb0647c139fba5b4d6d8ac629d333b5bcbfe65c",
+        "state": "verified",
+        "address": "0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd",
+        "chainId": 1,
+        "checkedAt": 1791881988207,
+        "inputHash": "sha256:1edb051e2b7805a82f5500b5d1560eba7e85bfb79ce15b539e889dcad722d401",
+        "sourcifyId": "e0e9268a-e902-4c95-9910-096b6f795584",
+        "explorerUrl": "https://etherscan.io/address/0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd#code",
+        "sourcifyUrl": "https://repo.sourcify.dev/1/0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd",
+        "etherscanGuid": "gcq4gh6jygguqyrmusx2lnteyf9mf8geuczusf33uaawrbgh72",
+        "etherscanMatch": "exact",
+        "etherscanState": "verified",
+        "etherscanRefusals": 0,
+        "etherscanVerified": true,
+        "etherscanAttemptAt": 1791857298258,
+        "etherscanRetryExhausted": false,
+        "sourcifyAlreadyVerified": false,
+        "etherscanSubmissionCount": 1,
+        "runtimeMatch": "exact_match",
+        "creationMatch": "exact_match"
+      },
+      "settings": {
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "viaIR": true,
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=contracts/lib/openzeppelin-contracts/contracts/"
+        ],
+        "outputSelection": {
+          "*": {
+            "*": [
+              "abi",
+              "evm.bytecode",
+              "evm.deployedBytecode",
+              "metadata",
+              "storageLayout"
+            ]
+          }
+        }
+      },
+      "sourceRepository": "https://github.com/contractclaus/claus-network-contracts",
+      "sourceCommit": "7e0e0c703ec3e41858d9312c338b48f9d2f9f9f4",
+      "entry": "src/ClausSignalFactory.sol",
+      "sourceMapping": [
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol",
+          "sha256": "2d17bba201aa2f9c55e317315b872272a60361848dfceb6b1e77081265c79a27"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol",
+          "sha256": "f89772d2d4fafcbef8b73bb10ee9a3373edec2eedb2f1b302320915b351dc3d1"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC7913.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC7913.sol",
+          "sha256": "f66aad4249885b0f11369bfa825dded60aa4baa0d76d9becdac9daa48c350350"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Bytes.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Bytes.sol",
+          "sha256": "3ce9120a27934c75a074cb785d3a88868069ef6529dbe4dc6b845af0836f3c70"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol",
+          "sha256": "ba7c2d314fcd61c9783e0b3f0c664d004b76b408fda6a84edc8267d17c5012d6"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol",
+          "sha256": "2845caaaf70757b6cce612ae4ffbec2c382cb3d1cb9765c98fa649c0f5f1c794"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol",
+          "sha256": "538a0d7c4f0ec5a8562f58561890f7b49d14580674ecf58bc5f505b45c73df65"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol",
+          "sha256": "acc520422fac0a9edb85d7268085a63219a0db9e4406cd155d5c74c94e35f590"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+          "sha256": "bdfdbe133991c0c78042957ff5cd97167926fcaf6d15664f3835a076cb066457"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+          "sha256": "5779bc848bde39f1ad7bc02b4f708a0040888e0083b1a33f119cd94639350134"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol",
+          "sha256": "1ed50b1056af886752f0fb48a0165d381e69bb4a4b18b893b066dc144a7e08d7"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Panic.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Panic.sol",
+          "sha256": "270fc8401c1a13fae6a7a4a2dd6e381b95d658896701e51f0d3e2688acab3dec"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol",
+          "sha256": "1cfa08d3c551e9ec0b9cd249b09987f04e7e90f352e1a5e3b0d6a3bc426b3de7"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol",
+          "sha256": "75704538dcb223239280c6726d9a31cf769a7816718517c997fc7d63bdb70778"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+          "sha256": "e318709bbe73a7831d64c1351e8bdc43780b245f25191234e361e6ab9b98c67b"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausApprovalExecutor.sol",
+          "repositoryPath": "src/ClausApprovalExecutor.sol",
+          "sha256": "92df12300de383b7a5c113f43160ee95eb7f3edf25e83178d8bfbf005446a6df"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausReadonlyProject.sol",
+          "repositoryPath": "src/ClausReadonlyProject.sol",
+          "sha256": "7c7fe172382a767b3700daac415fedb297b57ffe5c932deba561fffc1bbe75a1"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalFactory.sol",
+          "repositoryPath": "src/ClausSignalFactory.sol",
+          "sha256": "100f4fe0a4bc288bd81fd10777828572f4dab9ef32eb006b5897d44118610fc0"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalStore.sol",
+          "repositoryPath": "src/ClausSignalStore.sol",
+          "sha256": "8da79dc2010a79509a4db9e0165b347dbd18cf8dcd61ea247bc926ff3cf97104"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalTypes.sol",
+          "repositoryPath": "src/ClausSignalTypes.sol",
+          "sha256": "72b7dc98f3333a1abf2d22d4408a46801c9455709de63bd6d3f9e1fce78ff61a"
+        }
+      ],
+      "allInputSourcesExact": true,
+      "compiler": "0.8.27+commit.40a35a09",
+      "inputHash": "sha256:d3828001796307ea651f574b56ce84a01c2838ed67dd52a64900ca2ff3bc5906"
+    },
+    {
+      "chainId": 11155111,
+      "contract": "ClausSignalFactory",
+      "address": "0x16f47ddec1b5b124b57cc9847a550f15b6de24bd",
+      "transactionHash": "0x63bedb85133d4f6a4d223925223e7dbe6834cb8453b663afdc0a587f83ec8e34",
+      "codeHash": "0x0a0ad297ae2d1e58a801066d3719a68c1bd3e26eb47159c23ce67e0af7cb4ad3",
+      "receipt": {
+        "status": "success",
+        "gasUsed": "17937445",
+        "blockHash": "0xe20c24b58c8d9c08def979de800b815f345610f3e595f9857b25289685946fb3",
+        "blockNumber": "11902882",
+        "contractAddress": "0x16f47ddec1b5b124b57cc9847a550f15b6de24bd",
+        "transactionHash": "0x63bedb85133d4f6a4d223925223e7dbe6834cb8453b663afdc0a587f83ec8e34",
+        "effectiveGasPrice": "1000018"
+      },
+      "verification": {
+        "id": "sha256:a826a52df4b69d29878f146ce6b2423090d07f676b888437bdf66b421635516d",
+        "state": "verified",
+        "address": "0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd",
+        "chainId": 11155111,
+        "checkedAt": 1791857072770,
+        "inputHash": "sha256:98ccf8f4906fd7587b6587db58e8d1474682c2d8552f26964eb526ad42b79b06",
+        "sourcifyId": "3669ddc1-88b3-4fcd-a329-c5339f386513",
+        "explorerUrl": "https://sepolia.etherscan.io/address/0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd#code",
+        "sourcifyUrl": "https://repo.sourcify.dev/11155111/0x16F47DdEC1B5B124b57cC9847A550f15B6de24Bd",
+        "etherscanGuid": "giudplfdpskckthe7ibjelxyq9a4kj12ds2yaxxewhj9932xtp",
+        "etherscanMatch": "exact",
+        "etherscanState": "verified",
+        "etherscanRefusals": 0,
+        "etherscanVerified": true,
+        "etherscanAttemptAt": 1791857018203,
+        "etherscanRetryExhausted": false,
+        "sourcifyAlreadyVerified": false,
+        "etherscanSubmissionCount": 1,
+        "runtimeMatch": "exact_match",
+        "creationMatch": "exact_match"
+      },
+      "settings": {
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "viaIR": true,
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=contracts/lib/openzeppelin-contracts/contracts/"
+        ],
+        "outputSelection": {
+          "*": {
+            "*": [
+              "abi",
+              "evm.bytecode",
+              "evm.deployedBytecode",
+              "metadata",
+              "storageLayout"
+            ]
+          }
+        }
+      },
+      "sourceRepository": "https://github.com/contractclaus/claus-network-contracts",
+      "sourceCommit": "7e0e0c703ec3e41858d9312c338b48f9d2f9f9f4",
+      "entry": "src/ClausSignalFactory.sol",
+      "sourceMapping": [
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol",
+          "sha256": "2d17bba201aa2f9c55e317315b872272a60361848dfceb6b1e77081265c79a27"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol",
+          "sha256": "f89772d2d4fafcbef8b73bb10ee9a3373edec2eedb2f1b302320915b351dc3d1"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC7913.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/interfaces/IERC7913.sol",
+          "sha256": "f66aad4249885b0f11369bfa825dded60aa4baa0d76d9becdac9daa48c350350"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Bytes.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Bytes.sol",
+          "sha256": "3ce9120a27934c75a074cb785d3a88868069ef6529dbe4dc6b845af0836f3c70"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol",
+          "sha256": "ba7c2d314fcd61c9783e0b3f0c664d004b76b408fda6a84edc8267d17c5012d6"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol",
+          "sha256": "2845caaaf70757b6cce612ae4ffbec2c382cb3d1cb9765c98fa649c0f5f1c794"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol",
+          "sha256": "538a0d7c4f0ec5a8562f58561890f7b49d14580674ecf58bc5f505b45c73df65"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol",
+          "sha256": "acc520422fac0a9edb85d7268085a63219a0db9e4406cd155d5c74c94e35f590"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/Math.sol",
+          "sha256": "bdfdbe133991c0c78042957ff5cd97167926fcaf6d15664f3835a076cb066457"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol",
+          "sha256": "5779bc848bde39f1ad7bc02b4f708a0040888e0083b1a33f119cd94639350134"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol",
+          "sha256": "1ed50b1056af886752f0fb48a0165d381e69bb4a4b18b893b066dc144a7e08d7"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Panic.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Panic.sol",
+          "sha256": "270fc8401c1a13fae6a7a4a2dd6e381b95d658896701e51f0d3e2688acab3dec"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol",
+          "sha256": "1cfa08d3c551e9ec0b9cd249b09987f04e7e90f352e1a5e3b0d6a3bc426b3de7"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol",
+          "sha256": "75704538dcb223239280c6726d9a31cf769a7816718517c997fc7d63bdb70778"
+        },
+        {
+          "compilerInputPath": "contracts/lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+          "repositoryPath": "lib/openzeppelin-contracts/contracts/utils/Strings.sol",
+          "sha256": "e318709bbe73a7831d64c1351e8bdc43780b245f25191234e361e6ab9b98c67b"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausApprovalExecutor.sol",
+          "repositoryPath": "src/ClausApprovalExecutor.sol",
+          "sha256": "92df12300de383b7a5c113f43160ee95eb7f3edf25e83178d8bfbf005446a6df"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausReadonlyProject.sol",
+          "repositoryPath": "src/ClausReadonlyProject.sol",
+          "sha256": "7c7fe172382a767b3700daac415fedb297b57ffe5c932deba561fffc1bbe75a1"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalFactory.sol",
+          "repositoryPath": "src/ClausSignalFactory.sol",
+          "sha256": "100f4fe0a4bc288bd81fd10777828572f4dab9ef32eb006b5897d44118610fc0"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalStore.sol",
+          "repositoryPath": "src/ClausSignalStore.sol",
+          "sha256": "8da79dc2010a79509a4db9e0165b347dbd18cf8dcd61ea247bc926ff3cf97104"
+        },
+        {
+          "compilerInputPath": "contracts/src/ClausSignalTypes.sol",
+          "repositoryPath": "src/ClausSignalTypes.sol",
+          "sha256": "72b7dc98f3333a1abf2d22d4408a46801c9455709de63bd6d3f9e1fce78ff61a"
+        }
+      ],
+      "allInputSourcesExact": true,
+      "compiler": "0.8.27+commit.40a35a09",
+      "inputHash": "sha256:d3828001796307ea651f574b56ce84a01c2838ed67dd52a64900ca2ff3bc5906"
+    },
+    {
+      "chainId": 1,
+      "contract": "ClausRequestInbox",
+      "address": "0x76790efe14c059a3d01d51093d808fab13445645",
+      "transactionHash": "0x2654214d3406975c6fc1be52c60fd62144d8a83f82c8728017c3e7cf5e19f3d7",
+      "codeHash": "0xd35eae56c83cd120e63dcac68957afefb3564768d380923d1a32918b4498a090",
+      "receipt": {
+        "status": "success",
+        "gasUsed": "642922",
+        "blockHash": "0xcbe628f882262ceb88c60ce0e875a7c088fda15e40b105e5a38fcb5fd8e2da97",
+        "blockNumber": "26180396",
+        "contractAddress": "0x76790efe14c059a3d01d51093d808fab13445645",
+        "transactionHash": "0x2654214d3406975c6fc1be52c60fd62144d8a83f82c8728017c3e7cf5e19f3d7",
+        "effectiveGasPrice": "63514143"
+      },
+      "verification": {
+        "id": "sha256:0160373fff28db6f68810120181a4c42e55ae5028afa1df60904d8f79fd88e2d",
+        "state": "verified",
+        "address": "0x76790eFe14C059a3D01D51093D808faB13445645",
+        "chainId": 1,
+        "checkedAt": 1791881987886,
+        "inputHash": "sha256:0aeaf94c428af868b47c9ba503b8ff8d6d20db0fb6fd6e38e4d1bf7885642939",
+        "sourcifyId": "d19ad77a-aefe-4e63-aa80-67489afbae43",
+        "explorerUrl": "https://etherscan.io/address/0x76790eFe14C059a3D01D51093D808faB13445645#code",
+        "sourcifyUrl": "https://repo.sourcify.dev/1/0x76790eFe14C059a3D01D51093D808faB13445645",
+        "etherscanGuid": "icbun6xkrsarwmveiyg3zpzbqqpflu6hukz5fkaqncrrskuimz",
+        "etherscanMatch": "exact",
+        "etherscanState": "verified",
+        "etherscanRefusals": 0,
+        "etherscanVerified": true,
+        "etherscanAttemptAt": 1791857297722,
+        "etherscanRetryExhausted": false,
+        "sourcifyAlreadyVerified": false,
+        "etherscanSubmissionCount": 1,
+        "runtimeMatch": "exact_match",
+        "creationMatch": "exact_match"
+      },
+      "settings": {
+        "evmVersion": "cancun",
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "outputSelection": {
+          "*": {
+            "*": [
+              "abi",
+              "evm.bytecode",
+              "evm.deployedBytecode",
+              "metadata",
+              "storageLayout"
+            ]
+          }
+        },
+        "remappings": [
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+        ],
+        "viaIR": true
+      },
+      "sourceRepository": "https://github.com/contractclaus/claus-network",
+      "sourceCommit": "7f907d572f1735a49bd36c74682c35047fbb69a8",
+      "entry": "contracts/src/ClausRequestInbox.sol",
+      "sourceMapping": [
+        {
+          "compilerInputPath": "contracts/src/ClausRequestInbox.sol",
+          "repositoryPath": "contracts/src/ClausRequestInbox.sol",
+          "sha256": "3244917fea9275980c691acffe19cdd939dace62b9714dcc2138622bf6b832c7"
+        }
+      ],
+      "allInputSourcesExact": true,
+      "compiler": "0.8.27+commit.40a35a09",
+      "inputHash": "sha256:037b675bb5cff1fd53755dad139b53f65edf977ccae38cd4b5867a1557e05f33"
+    }
+  ]
+}
