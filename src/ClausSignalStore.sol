@@ -109,6 +109,7 @@ contract ClausSignalStore is EIP712 {
     function cancelGrantNonce(uint256 nonce) external {
         (address owner,) = _project(false);
         if (msg.sender != owner) revert OwnerOnly();
+        if (grantNonces[owner][nonce]) revert InvalidGrant();
         grantNonces[owner][nonce] = true;
         emit GrantNonceCancelled(owner, nonce);
     }
@@ -116,7 +117,7 @@ contract ClausSignalStore is EIP712 {
     function revokeGrant(bytes32 id) external {
         (address owner,) = _project(false);
         if (msg.sender != owner) revert OwnerOnly();
-        if (grants[id].terms.publisher == address(0)) revert InvalidGrant();
+        // Revocation also withdraws a signed grant before its registration.
         grants[id].revoked = true;
         emit GrantRevoked(id);
     }
@@ -130,7 +131,9 @@ contract ClausSignalStore is EIP712 {
         (, uint64 generation) = _project(true);
         GrantState storage state = grants[grantId];
         Grant memory g = state.terms;
-        if (msg.sender != g.publisher || msg.sender.code.length != 0) revert PublisherOnly();
+        // Sender still authenticates the grant; origin additionally excludes
+        // counterfactual contracts calling while their code is under construction.
+        if (msg.sender != g.publisher || msg.sender != tx.origin || msg.sender.code.length != 0) revert PublisherOnly();
         if (state.revoked || generation != g.authorityGeneration || g.expiresAt <= block.timestamp ||
             state.used >= g.maximumWrites || (state.used != 0 && block.timestamp < uint256(state.lastWrite) + g.minimumInterval)) revert GrantInactive();
         if (evaluator.version() != expectedVersion) revert StaleVersion();
