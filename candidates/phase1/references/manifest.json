@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-15T10:58:52.378Z",
+  "localOnly": true,
+  "files": [
+    {
+      "file": "ClausLpRewards.sol",
+      "address": "0xB2304d3DE407398de441b147e2c64c7c48DAf44E",
+      "input": "operations/lp-rewards-2026-10-10/release/ClausLpRewards-verification-input.json",
+      "sourceKey": "src/ClausLpRewards.sol",
+      "inputSha256": "ed5159193a2e94c88aeff356451a6c1e3d9e5ebfb7d64fa39916a772c32b0c5e",
+      "sha256": "f7c26fcde8e1ffbf1638e8189d27794954d9aa5551a3e0991ee4ae9ce0f21e86",
+      "purpose": "Existing deployed reference, not a new deployment target"
+    },
+    {
+      "file": "TimedBuybackHook.sol",
+      "address": "0xD770a418310bc8fD164AAC5F1E1e3F4159102f2c",
+      "input": "operations/timed-buyback-2026-10-15/verification-input.json",
+      "sourceKey": "src/TimedBuybackHook.sol",
+      "inputSha256": "8d22417c233ba70e0839569d3ecf7c43809c37444794481024f379b5050fadb5",
+      "sha256": "5d345c55d88d0cd5f15d4ad6004ec0881887e1c14d0c2a43c5ce9ea9cc3d76cb",
+      "purpose": "Existing deployed reference, not a new deployment target"
+    },
+    {
+      "file": "OpenTransferToken.sol",
+      "address": "0xDdB5A5f87915e5DA68e84f312571632CE7486F81",
+      "source": "operations/open-transfers-2026-10-10/candidate/src/OpenTransferToken.sol",
+      "sha256": "cf0fafc27a8bde7bef6fcb6d15776c10022ac1813cb6e721da6b05f0c5eb7410",
+      "compiledMetadataMatched": true,
+      "purpose": "Existing implementation reference; compare storage and metadata, not a deployment target"
+    }
+  ]
+}
