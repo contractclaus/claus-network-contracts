@@ -1,0 +1,15 @@
+# CLAUS: replaceable hooks with permanent trading boundaries
+
+Revision r2 is a review candidate, not a live release. It supersedes the unactivated r1 architecture. Existing token, main pool and custody addresses are retained.
+
+The permanent accounting core keeps normal transfers and prevents administrative trade/transfer blacklists, arbitrary mint/confiscation, uncontrolled deltas and replacement of its own protections. Core fees plus the actual main-pool protocol fee cannot exceed 15%. Independent third-party pool costs, gas and market price impact are outside this cap.
+
+TradeExtensionHost remains fixed; its trade programs remain replaceable by the token owner. A program returns a fee plan for six destinations: project, platform, burn, LP rewards, NFT rewards and the program itself. The sum is one fee, limited to 14.9%, leaving room for the maximum 0.1% v4 protocol charge. Zero-fee plans are supported. Invalid, excessive, reverting or oversized responses fall back to the existing 2.3% default. No program is selected initially and no fee is increased by this release. Future allocations can change; already earned rewards, prior reserves, NFT backing and LP ownership cannot be redirected.
+
+Program quotations run in a gas-bounded STATICCALL with at most 4096 bytes of optional trade data. The exact plan/program is captured once for settlement. No replaceable stateful code executes inside the user's swap, because even a caught call can poison an unlocked PoolManager. Instead, the host records an original trade receipt. Anyone may deliver it separately, once, to its original program with the original data. A failure affects only that separate delivery. The program may use its own newly earned fee claims and assets, not old core funds. A receipt does not prove execution; no automatic executor is supplied by these contracts.
+
+The default fee allocation and existing timed buyback window are preserved. Programs can implement different future allocations and independent processors with their own fees. Legacy fee getters describe the default policy; integrations must use quoteTradeFee / the host's exact plan and actual swap quotation for an active program. Caller addresses in receipts identify the PoolManager caller, often a router, not necessarily the beneficial trader.
+
+Entrypoints: ProtectedToken.sol, ProtectedHook.sol, TradeExtensionHost.sol and PhaseOneFinalizer.sol in contract/src. The finalizer installs the core implementations and removes both original ProxyAdmin owners atomically. The remaining token owner can select trade programs and edit metadata, but cannot replace the core. Phase 1 does not transfer this ownership to the native agent.
+
+Build from contract/ with Forge, Solidity 0.8.26, Cancun, optimizer 200, via IR. Dependencies are included with license headers. Local fork tests cover ordinary trades and exits, preserved custody, zero/maximum fees, hostile programs, receipt binding/replay/failure and both upgrade owners. Tests are not an independent audit or a guarantee against all software defects. Compiler template hashes are not immutable-populated deployment hashes.
